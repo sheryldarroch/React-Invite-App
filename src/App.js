@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+
 import GuestList from './GuestList';
+import Counter from './Counter';
 
 class App extends Component {
 
@@ -45,6 +47,14 @@ class App extends Component {
   toggleEditingAt = index =>
     this.toggleGuestPropertyAt("isEditing", index);
 
+  removeGuestAt = index =>
+    this.setState({
+      guests: [
+        ...this.state.guests.slice(0, index),
+        ...this.state.guests.slice(index+1)
+      ]
+    });
+
   setNameAt = (name, indexToChange) =>
       this.setState({
         guests: this.state.guests.map((guest, index) => {
@@ -80,10 +90,16 @@ class App extends Component {
   }
 
   getTotalInvited = () => this.state.guests.length;
-  // getAttendingGuests = () =>
-  // getUnconfirmedGuests = () =>
+
+  getAttendingGuests = () =>
+    this.state.guests.reduce(
+      (total, guest) => guest.isConfirmed ? total + 1 : total,
+      0);
 
   render() {
+    const totalInvited=this.getTotalInvited();
+    const numberAttending=this.getAttendingGuests();
+    const numberUnconfirmed=totalInvited - numberAttending;
     return (
       <div className="App">
         <header>
@@ -108,22 +124,12 @@ class App extends Component {
                 checked={this.state.isFiltered} /> Hide those who haven't responded
             </label>
           </div>
-          <table className="counter">
-            <tbody>
-              <tr>
-                <td>Attending:</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>Unconfirmed:</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>Total:</td>
-                <td>3</td>
-              </tr>
-            </tbody>
-          </table>
+
+          <Counter
+            totalInvited={totalInvited}
+            numberAttending={numberAttending}
+            numberUnconfirmed={numberUnconfirmed}
+          />
 
           <GuestList
             guests={this.state.guests}
@@ -131,6 +137,8 @@ class App extends Component {
             toggleEditingAt={this.toggleEditingAt}
             setNameAt={this.setNameAt}
             isFiltered={this.state.isFiltered}
+            removeGuestAt={this.removeGuestAt}
+            pendingGuest={this.state.pendingGuest}
           />
 
         </div>
