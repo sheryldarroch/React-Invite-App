@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const GuestInputForm = props =>
-    <form onSubmit={props.handleNewGuestSubmition}>
+    <form onSubmit={props.newGuestSubmitHandler}>
         <input
           type="text"
           onChange={props.handleNewGuest}
@@ -13,7 +13,7 @@ const GuestInputForm = props =>
     </form>;
 
     GuestInputForm.propTypes = {
-      handleNewGuestSubmition: PropTypes.func.isRequired,
+      newGuestSubmitHandler: PropTypes.func.isRequired,
       handleNewGuest: PropTypes.func.isRequired,
       pendingGuest: PropTypes.string.isRequired
     };

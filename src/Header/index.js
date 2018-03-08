@@ -10,12 +10,12 @@ const Header = props =>
       <GuestInputForm
         pendingGuest={props.pendingGuest}
         handleNewGuest={props.handleNewGuest}
-        handleNewGuestSubmition={props.handleNewGuestSubmition}
+        newGuestSubmitHandler={props.newGuestSubmitHandler}
       />
     </header>;
 
   Header.propTypes={
-    handleNewGuestSubmition: PropTypes.func.isRequired,
+    newGuestSubmitHandler: PropTypes.func.isRequired,
     handleNewGuest: PropTypes.func.isRequired,
     pendingGuest: PropTypes.string.isRequired,
   };
