@@ -87,10 +87,19 @@ class App extends Component {
       (total, guest) => guest.isConfirmed ? total + 1 : total,
       0);
 
+  componentWillMount = () =>
+    localStorage.getItem('guests') && this.setState({
+      guests: JSON.parse(localStorage.getItem('guests'))
+    });
+
+  componentWillUpdate = (nextProps, nextState) =>
+    localStorage.setItem('guests', JSON.stringify(nextState.guests));
+
   render() {
     const totalInvited=this.getTotalInvited();
     const numberAttending=this.getAttendingGuests();
     const numberUnconfirmed=totalInvited - numberAttending;
+
     return (
       <div className="App">
         <Header
