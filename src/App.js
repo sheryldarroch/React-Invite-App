@@ -7,10 +7,62 @@ import MainContent from './MainContent';
 class App extends Component {
 
   state = {
+    pendingName: '',
+    pendingDate: '',
+    pendingTime: '',
+    pendingLocation: '',
+
+    event: {
+        // name: "Tom's 50th Birthday",
+        // date: "November 28, 2018",
+        // time: "7:00 pm - midnight",
+        // location: "M1 Concourse"
+      },
+
     isFiltered: false,
     pendingGuest: '',
     guests: []
   }
+
+  handleInput = (property, e) =>
+    this.setState({ [property]: e.target.value });
+
+  handleEventName = e =>
+    this.handleInput("pendingName", e);
+
+  handleEventDate = e =>
+    this.handleInput("pendingDate", e);
+
+  handleEventTime = e =>
+    this.handleInput("pendingTime", e);
+
+  handleEventLocation = e =>
+    this.handleInput("pendingLocation", e);
+
+  newEventSubmitHandler = e => {
+    e.preventDefault();
+    this.setState({
+      event: {
+        name: this.state.pendingName,
+        date: this.state.pendingDate,
+        time: this.state.pendingTime,
+        location: this.state.pendingLocation,
+        isEditing: true
+      },
+      // pendingName: '',
+      // pendingDate: '',
+      // pendingTime: '',
+      // pendingLocation: ''
+    });
+  }
+
+  // toggleEventEditing = e => {
+  //   this.setState({
+  //     event: {
+  //     isEditing: !event[isEditing]
+  //     }
+  //   });
+  // }
 
   lastGuestId = 0;
 
@@ -57,11 +109,12 @@ class App extends Component {
         })
       });
 
+
   toggleFilter = () =>
     this.setState({ isFiltered: !this.state.isFiltered });
 
   handleNewGuest = e =>
-    this.setState({ pendingGuest: e.target.value });
+    this.handleInput("pendingGuest", e);
 
   newGuestSubmitHandler = e => {
     e.preventDefault();
@@ -99,10 +152,20 @@ class App extends Component {
     const totalInvited=this.getTotalInvited();
     const numberAttending=this.getAttendingGuests();
     const numberUnconfirmed=totalInvited - numberAttending;
-
     return (
       <div className="App">
         <Header
+          event={this.state.event}
+          newEventSubmitHandler={this.newEventSubmitHandler}
+          toggleEventEditing={this.toggleEventEditing}
+          handleEventName={this.handleEventName}
+          pendingName={this.state.pendingName}
+          handleEventDate={this.handleEventDate}
+          pendingDate={this.state.pendingDate}
+          handleEventTime={this.handleEventTime}
+          pendingTime={this.state.pendingTime}
+          handleEventLocation={this.handleEventLocation}
+          pendingLocation={this.state.pendingLocation}
           newGuestSubmitHandler={this.newGuestSubmitHandler}
           handleNewGuest={this.handleNewGuest}
           pendingGuest={this.state.pendingGuest}

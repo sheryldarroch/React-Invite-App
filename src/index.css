@@ -96,7 +96,7 @@ button {
 header {
   text-align: center;
   background: linear-gradient(90deg, #d4eece, #55b3d0, #1e7eb7),
-    url(./images/header-bg.jpg) no-repeat;
+    url(./images/DetHeader-bg.jpg) no-repeat;
   background-blend-mode: multiply;
   background-size: cover;
 }
@@ -195,11 +195,7 @@ td:last-child {
   transition: 0.4s;
   color: rgba(88, 183, 205, 1);
 }
-/* =================================
-  Media Queries
-==================================== */
 
-@media (max-width: 768px) {
   header {
     padding: 1.25em;
   }
@@ -240,11 +236,14 @@ td:last-child {
     display: inline-block;
     padding: 0 12px 0 0;
   }
-}
+
+  /* =================================
+    Media Queries
+  ==================================== */
 
 @media (min-width: 769px) {
   header {
-    height: 280px;
+    height: 350px;
     padding: 2.5em 1em 1em;
     background-position: 0 -95px;
   }
@@ -258,15 +257,16 @@ td:last-child {
     font-size: 1.95em;
   }
   form {
-    margin: 4.15em auto 0;
+    margin: 2.15em auto 0;
     z-index: 3000;
     position: relative;
   }
+
   .wrapper {
     width: 90%;
   }
   .main {
-    padding: 3.8em 1.5em .75em;
+    padding: 10em 1.5em .75em;
     position: relative;
     z-index: 10;
   }
